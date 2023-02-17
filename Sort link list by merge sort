@@ -1,1 +1,128 @@
 
+#include <iostream>
+
+using namespace std;
+
+// Node class for singly-linked list
+class Node {
+public:
+    int data;
+    Node* next;
+
+    Node(int d) {
+        data = d;
+        next = nullptr;
+    }
+};
+
+// LinkedList class to handle operations on linked list
+class LinkedList {
+private:
+    Node* head;
+
+    // Function to merge two sorted linked lists
+    Node* mergeLists(Node* left, Node* right) {
+        Node* result = nullptr;
+
+        if (left == nullptr) {
+            return right;
+        } else if (right == nullptr) {
+            return left;
+        }
+
+        if (left->data <= right->data) {
+            result = left;
+            result->next = mergeLists(left->next, right);
+        } else {
+            result = right;
+            result->next = mergeLists(left, right->next);
+        }
+
+        return result;
+    }
+
+    // Function to split a list into two halves
+    void splitList(Node* source, Node** front, Node** back) {
+        Node* slow = source;
+        Node* fast = source->next;
+
+        while (fast != nullptr) {
+            fast = fast->next;
+            if (fast != nullptr) {
+                slow = slow->next;
+                fast = fast->next;
+            }
+        }
+
+        *front = source;
+        *back = slow->next;
+        slow->next = nullptr;
+    }
+
+public:
+    // Constructor to initialize head as NULL
+    LinkedList() {
+        head = nullptr;
+    }
+
+    // Function to insert a new node at the beginning of the list
+    void push(int new_data) {
+        Node* new_node = new Node(new_data);
+        new_node->next = head;
+        head = new_node;
+    }
+
+    // Function to print the linked list
+    void printList() {
+        Node* current = head;
+        while (current != nullptr) {
+            cout << current->data << " ";
+            current = current->next;
+        }
+        cout << endl;
+    }
+
+    // Function to perform merge sort on the linked list
+    void mergeSort() {
+        if (head == nullptr || head->next == nullptr) {
+            return;
+        }
+
+        Node* left;
+        Node* right;
+
+        splitList(head, &left, &right);
+
+        LinkedList leftList;
+        LinkedList rightList;
+
+        leftList.head = left;
+        rightList.head = right;
+
+        leftList.mergeSort();
+        rightList.mergeSort();
+
+        head = mergeLists(left, right);
+    }
+};
+
+// Driver code
+int main() {
+    LinkedList list;
+    list.push(5);
+    list.push(20);
+    list.push(4);
+    list.push(3);
+    list.push(30);
+    list.push(10);
+
+    cout << "Original List: ";
+    list.printList();
+
+    list.mergeSort();
+
+    cout << "Sorted List: ";
+    list.printList();
+
+    return 0;
+}
