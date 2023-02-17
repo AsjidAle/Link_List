@@ -52,7 +52,6 @@ int main() {
     push(&head, 30);
     push(&head, 10);
 
-    printf("Number of nodes in the linked list: %d\n", countNodes(head));
 
     bubbleSort(head);
 
