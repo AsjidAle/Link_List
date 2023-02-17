@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Node structure for singly-linked list
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to insert a new node at the beginning of the list
+void push(struct Node** head_ref, int new_data) {
+    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+    new_node->data = new_data;
+    new_node->next = (*head_ref);
+    (*head_ref) = new_node;
+}
+
+// Function to sort the linked list using the bubble sort algorithm
+void bubbleSort(struct Node* head) {
+    int swapped;
+    struct Node* ptr1;
+    struct Node* lptr = NULL;
+
+    /* Checking for empty list */
+    if (head == NULL)
+        return;
+
+    do {
+        swapped = 0;
+        ptr1 = head;
+
+        while (ptr1->next != lptr) {
+            if (ptr1->data > ptr1->next->data) {
+                int temp = ptr1->data;
+                ptr1->data = ptr1->next->data;
+                ptr1->next->data = temp;
+                swapped = 1;
+            }
+            ptr1 = ptr1->next;
+        }
+        lptr = ptr1;
+    } while (swapped);
+}
+
+// Driver code
+int main() {
+    struct Node* head = NULL;
+    push(&head, 5);
+    push(&head, 20);
+    push(&head, 4);
+    push(&head, 3);
+    push(&head, 30);
+    push(&head, 10);
+
+    printf("Number of nodes in the linked list: %d\n", countNodes(head));
+
+    bubbleSort(head);
+
+    printf("Sorted Linked List : ");
+    struct Node* current = head;
+    while (current != NULL) {
+        printf("%d ", current->data);
+        current = current->next;
+    }
+    printf("\n");
+
+    return 0;
+}
