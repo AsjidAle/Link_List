@@ -1,0 +1,88 @@
+#include<iostream>
+class link_list;
+class node{
+    int data;
+    node*next;
+    friend link_list;
+    public:
+    node(){
+        next=NULL;
+    }
+};
+class link_list{
+    node* ptr;
+    public:
+    link_list(){ptr=nullptr;}
+    void push(int data);
+    bool pop();//delete first element
+    bool pop(int data);//delete given element
+    void travese();
+};
+int main(){
+    link_list l1;
+    l1.push(3);
+    l1.push(2);
+    l1.push(1);
+    l1.push(9);
+    l1.pop();
+    l1.pop();
+    l1.travese();
+    std::cout<<'\n';
+    (l1.pop(4))?std::cout<<"Sucessfully deleted \n":std::cout<<"Not deleted\n";
+    l1.travese();
+    return 0;
+}
+void link_list::travese(){
+    if(ptr==nullptr){
+        return;
+    }
+    node*n1=ptr;
+    while(n1->next!=nullptr){
+        std::cout<<n1->data<<'\n';
+        n1=n1->next;
+    }
+    std::cout<<n1->data;
+}
+void link_list::push(int data){
+    node*n1=new node;
+    n1->data=data;
+    n1->next=ptr;
+    ptr=n1;
+}
+bool link_list::pop(){
+    if(ptr==nullptr){
+        return 1;
+    }
+    node*n1= ptr;
+    ptr=ptr->next;
+    delete n1;
+    return 1;
+}
+bool link_list::pop(int data){
+    if(ptr==nullptr){
+        return 0;
+    }
+    node*n1=ptr;
+    if(ptr->data==data){
+        node*n2=ptr;
+        ptr=ptr->next;
+        delete n2;
+        return 1;
+    }
+    if(ptr->next->data==data){
+        node*n2=ptr->next;
+        ptr->next=ptr->next->next;
+        delete n2;
+        return 1;
+    }
+    while(n1->next->next!=nullptr){
+        if(n1->next->data==data){
+            node*n2=n1->next;
+            n1->next=n1->next->next;
+            delete n2;
+            return 1;
+        }
+        n1=n1->next;
+    }
+    return 0;
+}
