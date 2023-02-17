@@ -25,3 +25,20 @@ int countNodes(struct Node* head) {
     }
     return count;
 }
+
+
+int main() {
+    struct Node* head = NULL;
+    push(&head, 5);
+    push(&head, 20);
+    push(&head, 4);
+    push(&head, 3);
+    push(&head, 30);
+    push(&head, 10);
+
+    printf("Number of nodes in the linked list: %d\n", countNodes(head));
+
+    printf("\n");
+
+    return 0;
+}
