@@ -39,6 +39,7 @@ int main(){
     l1.travese();
     return 0;
 }
+
 void link_list::travese(){
     if(ptr==nullptr){
         return;
