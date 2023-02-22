@@ -59,6 +59,7 @@ void link_list::push(int data){
     n1->next=ptr;
     ptr=n1;
 }
+
 bool link_list::pop(){
     if(ptr==nullptr){
         return 1;
