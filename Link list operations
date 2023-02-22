@@ -51,6 +51,8 @@ void link_list::travese(){
     }
     std::cout<<n1->data;
 }
+
+
 void link_list::push(int data){
     node*n1=new node;
     n1->data=data;
