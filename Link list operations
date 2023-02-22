@@ -11,6 +11,9 @@ class node{
         next=NULL;
     }
 };
+
+
+
 class link_list{
     node* ptr;
     public:
