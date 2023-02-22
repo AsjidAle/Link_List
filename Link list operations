@@ -1,4 +1,6 @@
 #include<iostream>
+
+
 class link_list;
 class node{
     int data;
